@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+require('dotenv').config();
 
 const app = express()
 app.use(cors())
@@ -90,7 +91,7 @@ app.delete("/delete/:id",async(req,res)=>{
     res.send({success : true , message : "data deleted successfully" , data : data})
 })
 
-mongoose.connect("mongodb://127.0.0.1:27017/crudoperation")
+mongoose.connect(process.env.MONGOURL,{ useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log("connected to DB"),
     app.listen(PORT,()=>console.log("server is running"))
